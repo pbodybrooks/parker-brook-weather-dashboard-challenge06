@@ -1,3 +1,31 @@
 body {
     background: rgb(69, 69, 69);
 }
+
+#city-input {
+    height: 3vh;
+    font-size: 50px;
+}
+
+#save-button {
+    height: 5vh;
+    font-size: 30px;
+    margin-bottom: 5vh;
+}
+
+#city-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.city-button {
+    padding: 1vh;
+    font-size: 30px;
+}
+
+#clear-cities {
+    margin-top: 5vh;
+    color: red;
+    width: auto;
+
+}
