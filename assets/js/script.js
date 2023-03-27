@@ -3,10 +3,12 @@ const fetchButton = document.getElementById('fetch-button');
 const input = document.querySelector('#city-input');
 const button = document.querySelector('#save-button');
 const cityList = document.querySelector('#city-list');
+// let city = document.querySelector('#city-input').value;
 
 
 $("#save-button").on("click", getWeather);
 $("#save-button").on("click", saveCity);
+
 // $("#save-button").on("click", function () {
 //     getWeather();
 //     saveCity();
@@ -14,6 +16,7 @@ $("#save-button").on("click", saveCity);
 
 function getWeather() {
   let city = $(this).siblings("#city-input").val();
+
   let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
   fetch(weatherURL)
@@ -74,10 +77,7 @@ function displayCities(cities) {
   });
 }
 
-// Search for a city using the city name
-function searchCity(cityName) {
-    getWeather(cityName);
-}
+// button.classList.contains('answer').addEventListener("click", getWeather(button.textContent))
 
 // display saved city searches
 const cities = JSON.parse(localStorage.getItem('cities')) || [];
