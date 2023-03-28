@@ -5,7 +5,17 @@ const APIKey = "fe8c1985df685a70d00e6d5098ec6a2d";
 const input = document.querySelector('#city-input');
 const button = document.querySelector('#save-button');
 const cityList = document.querySelector('#city-list');
+const weatherContainer = document.querySelector("#weather-container");
+const weatherUL = document.querySelector("#weather-ul");
 const cityDisplayMax = 15;
+
+// let searchedCity = document.createElement('h3');
+// // let weatherUNIX = document.createElement('h3');
+// let weatherTemp = document.createElement('li');
+// let weatherWind = document.createElement('li');
+// let weatherHumidity = document.createElement('li');
+// let weatherDescription = document.createElement('img');
+
 
 
 // this listens for the enter key rather than a click because its more intuitive
@@ -31,7 +41,8 @@ $("#save-button").on("click", function (event) {
 
 // getWeather does two things when fed a city: it gets the weather, and stores the latitude and longitude in variables
 function getWeather(city) {
-    let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    console.clear();
+    let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     console.log("Weather URL: " + weatherURL);
     // fetch URL
     fetch(weatherURL)
@@ -49,6 +60,32 @@ function getWeather(city) {
         console.log("Latitude: " + lat + "   ||  Longitude: " + lon);
         // call getForecast and feed it lat, lon, and city (not required)
         getForecast(lat, lon, city);
+        
+        let searchedCity = weatherData.name;
+        let weatherUNIX = weatherData.dt; // format?
+        let weatherTemp= weatherData.main.temp;
+        let weatherWind = weatherData.wind.speed;
+        let weatherHumidity = weatherData.main.humidity;
+        let weatherDescription = weatherData.weather[0].description;
+        let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
+
+        // let weatherDetails = 
+
+        // weatherContainer.append(searchedCity); 
+        // weatherUL.append(weatherTemp, weatherWind, weatherHumidity);
+        
+        // weatherContainer.append(weatherDateTime);
+        // weatherContainer.append(weatherTemp);
+        // weatherContainer.append(weatherWind);
+        // weatherContainer.append(weatherHumidity);
+        // weatherContainer.append(weatherDescription);
+        // weatherContainer.append();
+
+        
+
+
+
+
         });
 }
 

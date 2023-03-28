@@ -29,3 +29,9 @@ body {
     width: auto;
 
 }
+
+#weather-container {
+    padding: 5vh;
+    font-size: 25px;
+    background-color: white;
+}
