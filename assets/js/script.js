@@ -1,5 +1,5 @@
 const APIKey = "fe8c1985df685a70d00e6d5098ec6a2d";
-const fetchButton = document.getElementById('fetch-button');
+// const fetchButton = document.getElementById('fetch-button');
 const input = document.querySelector('#city-input');
 const button = document.querySelector('#save-button');
 const cityList = document.querySelector('#city-list');
@@ -14,8 +14,12 @@ $("#save-button").on("click", saveCity);
 //     saveCity();
 // })
 
-function getWeather() {
-  let city = $(this).siblings("#city-input").val();
+function getWeather(city) {
+    console.log("City is: " + city);
+    if (city === undefined){
+        // let city = $(this).siblings("#city-input").val();
+        let city = document.querySelector('#city-input').value
+    }
 
   let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
@@ -71,13 +75,20 @@ function displayCities(cities) {
     button.classList.add("city-button");
     button.textContent = cityName;
     button.addEventListener('click', () => {
-      getWeather(cityName);
+      getWeather(button.textContent);
     });
     cityList.appendChild(button);
   });
 }
 
-// button.classList.contains('answer').addEventListener("click", getWeather(button.textContent))
+cityList.addEventListener("click", function () {
+    const city = input
+})
+
+// if (button.classList.contains('city-button')){
+//     button.addEventListener("click", getWeather(button.innerText));
+// }
+
 
 // display saved city searches
 const cities = JSON.parse(localStorage.getItem('cities')) || [];
