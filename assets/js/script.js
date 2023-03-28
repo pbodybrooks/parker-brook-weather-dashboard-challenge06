@@ -9,12 +9,7 @@ const weatherContainer = document.querySelector("#weather-container");
 const weatherUL = document.querySelector("#weather-ul");
 const cityDisplayMax = 15;
 
-// let searchedCity = document.createElement('h3');
-// // let weatherUNIX = document.createElement('h3');
-// let weatherTemp = document.createElement('li');
-// let weatherWind = document.createElement('li');
-// let weatherHumidity = document.createElement('li');
-// let weatherDescription = document.createElement('img');
+
 
 
 
@@ -61,31 +56,14 @@ function getWeather(city) {
         // call getForecast and feed it lat, lon, and city (not required)
         getForecast(lat, lon, city);
         
-        let searchedCity = weatherData.name;
-        let weatherUNIX = weatherData.dt; // format?
-        let weatherTemp= weatherData.main.temp;
-        let weatherWind = weatherData.wind.speed;
-        let weatherHumidity = weatherData.main.humidity;
-        let weatherDescription = weatherData.weather[0].description;
-        let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
-
-        // let weatherDetails = 
-
-        // weatherContainer.append(searchedCity); 
-        // weatherUL.append(weatherTemp, weatherWind, weatherHumidity);
-        
-        // weatherContainer.append(weatherDateTime);
-        // weatherContainer.append(weatherTemp);
-        // weatherContainer.append(weatherWind);
-        // weatherContainer.append(weatherHumidity);
-        // weatherContainer.append(weatherDescription);
-        // weatherContainer.append();
-
-        
-
-
-
-
+        // let searchedCity = weatherData.name;
+        // let weatherUNIX = weatherData.dt; // format?
+        // let weatherTemp= weatherData.main.temp;
+        // let weatherWind = weatherData.wind.speed;
+        // let weatherHumidity = weatherData.main.humidity;
+        // let weatherDescription = weatherData.weather[0].description;
+        // let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
+        displayWeather(weatherData);
         });
 }
 
@@ -100,8 +78,37 @@ function getForecast(lat, lon, city) {
         .then(function (forecastData) {
         console.log('Five Day Forecast in ' + city);
         console.log(forecastData);
+        // deconstructForecast(forecastData);
         });
 }
+
+function displayWeather(weatherData){
+    let searchedCity = weatherData.name;
+    let weatherUNIX = weatherData.dt; // format?
+    let weatherTemp= weatherData.main.temp;
+    let weatherWind = weatherData.wind.speed;
+    let weatherHumidity = weatherData.main.humidity;
+    let weatherIcon = "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png";
+    let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
+    let weatherDescription = toTitleCase(weatherData.weather[0].description);
+
+    console.clear();
+    console.log("Searched City: " + searchedCity + "\nUNIX: " + weatherUNIX + "\nTemp: " + weatherTemp + "\nWind: " + weatherWind + "\nHumidity: " + weatherHumidity + "\nDescription: " + weatherDescription + "\nDateTime: " + weatherDateTime);
+
+    let weatherTemplate = `
+        <h3>${searchedCity} ${weatherDateTime} <img src = "${weatherIcon}"</h3>
+        <p>${weatherDescription}</p>
+        <ul id = "weatherList">
+            <li>Temperature: ${weatherTemp}&#8457;</li>
+            <li>Wind: ${weatherWind} mph</li> 
+            <li>Humidity: ${weatherHumidity}%</li>  
+        </ul>`;
+    weatherContainer.innerHTML = weatherTemplate;    
+}
+
+// function deconstructForecast(forecastData){
+
+// }
 
 // saveCity saves the city to local storage if it is not already there
 function saveCity () {
@@ -241,8 +248,24 @@ function toTitleCase(str) {
 // ---- ------------------ -----
 
 
+// ---- Create > Set > Append Method -----
+// let searchedCity = document.createElement('h3');
+// let weatherUNIX = document.createElement('h3');
+// let weatherTemp = document.createElement('li');
+// let weatherWind = document.createElement('li');
+// let weatherHumidity = document.createElement('li');
+// let weatherDescription = document.createElement('img');
 
+// weatherContainer.append(searchedCity); 
+// weatherUL.append(weatherTemp, weatherWind, weatherHumidity);
 
+// weatherContainer.append(weatherDateTime);
+// weatherContainer.append(weatherTemp);
+// weatherContainer.append(weatherWind);
+// weatherContainer.append(weatherHumidity);
+// weatherContainer.append(weatherDescription);
+// weatherContainer.append();
+// ---- ------------------ -----
 
 
 
