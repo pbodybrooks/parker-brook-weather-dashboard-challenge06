@@ -6,11 +6,9 @@ const input = document.querySelector('#city-input');
 const button = document.querySelector('#save-button');
 const cityList = document.querySelector('#city-list');
 const weatherContainer = document.querySelector("#weather-container");
+const forecastContainer = document.querySelector("#forecast-container");
 const weatherUL = document.querySelector("#weather-ul");
 const cityDisplayMax = 15;
-
-
-
 
 
 // this listens for the enter key rather than a click because its more intuitive
@@ -36,9 +34,9 @@ $("#save-button").on("click", function (event) {
 
 // getWeather does two things when fed a city: it gets the weather, and stores the latitude and longitude in variables
 function getWeather(city) {
-    console.clear();
+    // console.clear();
     let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
-    console.log("Weather URL: " + weatherURL);
+    // console.log("Weather URL: " + weatherURL);
     // fetch URL
     fetch(weatherURL)
         .then(function (response) {
@@ -47,12 +45,12 @@ function getWeather(city) {
         })
         // get weather data
         .then(function (weatherData) {
-        console.log('Current Weather in ' + city);
-        console.log(weatherData);
+        // console.log('Current Weather in ' + city);
+        // console.log(weatherData);
         // store latitude and longitude values for getForecast
         let lat = weatherData.coord.lat;
         let lon = weatherData.coord.lon;
-        console.log("Latitude: " + lat + "   ||  Longitude: " + lon);
+        // console.log("Latitude: " + lat + "   ||  Longitude: " + lon);
         // call getForecast and feed it lat, lon, and city (not required)
         getForecast(lat, lon, city);
         
@@ -70,7 +68,7 @@ function getWeather(city) {
 // get forecast takes in latitude and longitude (And city simply for console log) to return 5-day forecast data
 function getForecast(lat, lon, city) {
     let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&units=imperial";
-    console.log("Forecast URL: " + forecastURL);
+    // console.log("Forecast URL: " + forecastURL);
     fetch(forecastURL)
         .then(function (response) {
         return response.json();
@@ -78,7 +76,8 @@ function getForecast(lat, lon, city) {
         .then(function (forecastData) {
         console.log('Five Day Forecast in ' + city);
         console.log(forecastData);
-        // deconstructForecast(forecastData);
+
+        displayForecast(forecastData);
         });
 }
 
@@ -91,10 +90,8 @@ function displayWeather(weatherData){
     let weatherIcon = "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png";
     let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
     let weatherDescription = toTitleCase(weatherData.weather[0].description);
-
-    console.clear();
+    // console.clear();
     console.log("Searched City: " + searchedCity + "\nUNIX: " + weatherUNIX + "\nTemp: " + weatherTemp + "\nWind: " + weatherWind + "\nHumidity: " + weatherHumidity + "\nDescription: " + weatherDescription + "\nDateTime: " + weatherDateTime);
-
     let weatherTemplate = `
         <h3>${searchedCity} ${weatherDateTime} <img src = "${weatherIcon}"</h3>
         <p>${weatherDescription}</p>
@@ -106,9 +103,41 @@ function displayWeather(weatherData){
     weatherContainer.innerHTML = weatherTemplate;    
 }
 
-// function deconstructForecast(forecastData){
+function displayForecast(forecastData){
+    let forecastTemplate = ``;
 
-// }
+    for (let i= 0; i < forecastData.list.length; i++){
+        let forecastUNIX = forecastData.list[i].dt;
+        let forecastDate = dayjs.unix(forecastUNIX).format('MMM D, YYYY');
+        let checkDate = dayjs.unix(forecastUNIX).format('HH');
+        let forecastDatetxt = forecastData.list[i].dt_txt;
+        let forecastIcon = "https://openweathermap.org/img/wn/" + forecastData.list[i].weather[0].icon + "@2x.png";
+        let forecastTemp = forecastData.list[i].main.temp;
+        let forecastWind = forecastData.list[i].wind.speed;
+        let forecastHumidity = forecastData.list[i].main.humidity;
+        
+        
+        // console.log("ForecastDatetxt: " + forecastDatetxt);
+        console.log("Check date: " + checkDate);
+        
+        
+
+        if (checkDate === '11' || checkDate === '12'){
+            console.log("Accepted check date: " + checkDate);
+            forecastTemplate += `
+            <div>
+                <h4> ${forecastDate} </h4>
+                <ul id = "forecastList">
+                    <li><img src = "${forecastIcon}"></li>
+                    <li>Temperature: ${forecastTemp}&#8457;</li>
+                    <li>Wind: ${forecastWind} mph</li> 
+                    <li>Humidity: ${forecastHumidity}%</li>  
+                </ul>
+            </div>`;
+        }
+    }
+    forecastContainer.innerHTML = forecastTemplate;
+}
 
 // saveCity saves the city to local storage if it is not already there
 function saveCity () {

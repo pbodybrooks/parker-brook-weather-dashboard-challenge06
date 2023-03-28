@@ -35,3 +35,11 @@ body {
     font-size: 25px;
     background-color: white;
 }
+
+#forecast-container {
+    padding: 5vh;
+    font-size: 25px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+}
