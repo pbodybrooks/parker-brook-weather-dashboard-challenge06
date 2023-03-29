@@ -1,10 +1,24 @@
+
+
 body {
-    background: rgb(69, 69, 69);
+    background: rgb(0, 0, 0);
+    /* background-image: url("../assets/images/earth1.jpeg"); */
+    /* ../assets/images/earth2.png */
+
+}
+
+h3 {
+    font-size: 40px;
+}
+
+h4 {
+    font-size: 30px;
 }
 
 #city-input {
     height: 3vh;
     font-size: 50px;
+    
 }
 
 #save-button {
@@ -33,13 +47,35 @@ body {
 #weather-container {
     padding: 5vh;
     font-size: 25px;
-    background-color: white;
+    background-color: black;
+    color: white;
 }
 
+
+#weatherList {
+
+}
+
+
+
+
+
 #forecast-container {
-    padding: 5vh;
+
     font-size: 25px;
-    background-color: white;
+    background-color: rgba(120, 120, 120, 0.222);
+    color: white;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    margin-left: 5px;
+}
+
+.forecastBlock {
+    margin: 2vw;
+
+}
+
+.forecastList {
+
 }

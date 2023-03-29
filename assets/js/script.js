@@ -8,6 +8,8 @@ const cityList = document.querySelector('#city-list');
 const weatherContainer = document.querySelector("#weather-container");
 const forecastContainer = document.querySelector("#forecast-container");
 const weatherUL = document.querySelector("#weather-ul");
+
+// max number of cities to save & display
 const cityDisplayMax = 15;
 
 
@@ -34,10 +36,10 @@ $("#save-button").on("click", function (event) {
 
 // getWeather does two things when fed a city: it gets the weather, and stores the latitude and longitude in variables
 function getWeather(city) {
-    // console.clear();
+    // create request URL with city and APIKey 
     let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
-    // console.log("Weather URL: " + weatherURL);
-    // fetch URL
+    
+    // fetch weather data
     fetch(weatherURL)
         .then(function (response) {
         // get JSON format response
@@ -45,30 +47,26 @@ function getWeather(city) {
         })
         // get weather data
         .then(function (weatherData) {
-        // console.log('Current Weather in ' + city);
-        // console.log(weatherData);
+        console.log('Current Weather in ' + city);
+        console.log(weatherData);
+
         // store latitude and longitude values for getForecast
         let lat = weatherData.coord.lat;
         let lon = weatherData.coord.lon;
-        // console.log("Latitude: " + lat + "   ||  Longitude: " + lon);
-        // call getForecast and feed it lat, lon, and city (not required)
+        
         getForecast(lat, lon, city);
         
-        // let searchedCity = weatherData.name;
-        // let weatherUNIX = weatherData.dt; // format?
-        // let weatherTemp= weatherData.main.temp;
-        // let weatherWind = weatherData.wind.speed;
-        // let weatherHumidity = weatherData.main.humidity;
-        // let weatherDescription = weatherData.weather[0].description;
-        // let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
+        
         displayWeather(weatherData);
         });
 }
 
-// get forecast takes in latitude and longitude (And city simply for console log) to return 5-day forecast data
+// getForecast takes in latitude and longitude (and city simply for console log) to return 5-day forecast data
 function getForecast(lat, lon, city) {
+    // create request URL with lat, lon, and APIKey 
     let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&units=imperial";
-    // console.log("Forecast URL: " + forecastURL);
+
+    // fetch forecast data
     fetch(forecastURL)
         .then(function (response) {
         return response.json();
@@ -77,21 +75,24 @@ function getForecast(lat, lon, city) {
         console.log('Five Day Forecast in ' + city);
         console.log(forecastData);
 
+        // pass returned forecastData into displayForecast
         displayForecast(forecastData);
         });
 }
 
+// displayWeather deconstructs the weatherData fetch return then creates a template literal with the data inside and pushes it into the weatherContainer
 function displayWeather(weatherData){
+    // deconstruct all necessary weather data
     let searchedCity = weatherData.name;
-    let weatherUNIX = weatherData.dt; // format?
+    let weatherUNIX = weatherData.dt; 
     let weatherTemp= weatherData.main.temp;
     let weatherWind = weatherData.wind.speed;
     let weatherHumidity = weatherData.main.humidity;
     let weatherIcon = "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png";
     let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
     let weatherDescription = toTitleCase(weatherData.weather[0].description);
-    // console.clear();
-    console.log("Searched City: " + searchedCity + "\nUNIX: " + weatherUNIX + "\nTemp: " + weatherTemp + "\nWind: " + weatherWind + "\nHumidity: " + weatherHumidity + "\nDescription: " + weatherDescription + "\nDateTime: " + weatherDateTime);
+   
+    // create a template literal i can push over to the HTML later
     let weatherTemplate = `
         <h3>${searchedCity} ${weatherDateTime} <img src = "${weatherIcon}"</h3>
         <p>${weatherDescription}</p>
@@ -100,35 +101,39 @@ function displayWeather(weatherData){
             <li>Wind: ${weatherWind} mph</li> 
             <li>Humidity: ${weatherHumidity}%</li>  
         </ul>`;
+    
+    // set the HTML inside weatherContainer to the template literal i created
     weatherContainer.innerHTML = weatherTemplate;    
 }
 
+// displayForecast deconstructs the forecastData fetch return then creates a template literal with the data inside and pushes it into the forecastContainer
+// this one differs from displayWeather in that we need to loop through the array of weather data first
 function displayForecast(forecastData){
+    // initialize forecastTemplate template literal here so that it exists in entire functions scope
     let forecastTemplate = ``;
 
+    // loop through forecastData array
     for (let i= 0; i < forecastData.list.length; i++){
+        // deconstruct all necessary forecast data
         let forecastUNIX = forecastData.list[i].dt;
         let forecastDate = dayjs.unix(forecastUNIX).format('MMM D, YYYY');
         let checkDate = dayjs.unix(forecastUNIX).format('HH');
-        let forecastDatetxt = forecastData.list[i].dt_txt;
         let forecastIcon = "https://openweathermap.org/img/wn/" + forecastData.list[i].weather[0].icon + "@2x.png";
+        let forecastDescription = toTitleCase(forecastData.list[i].weather[0].description);
         let forecastTemp = forecastData.list[i].main.temp;
         let forecastWind = forecastData.list[i].wind.speed;
         let forecastHumidity = forecastData.list[i].main.humidity;
         
-        
-        // console.log("ForecastDatetxt: " + forecastDatetxt);
-        console.log("Check date: " + checkDate);
-        
-        
-
+        // because this API returns weather data every 3 hours throughout the day, i am showing only the mid-day temperatures by using the below if statement
+        // i noticed that some city locations were offset by 1 hour, thus 11am is the closest time to mid-day
+        // only display forecast information if the time associated with the data is either 11 or 12
         if (checkDate === '11' || checkDate === '12'){
-            console.log("Accepted check date: " + checkDate);
+            // add to the template literal all the data we want to show the user, grouped by individual divs since we want to separate the five individual days and data
             forecastTemplate += `
-            <div>
+            <div class = "forecastBlock">
                 <h4> ${forecastDate} </h4>
-                <ul id = "forecastList">
-                    <li><img src = "${forecastIcon}"></li>
+                <h3><img src = "${forecastIcon}"> ${forecastDescription}</h3>
+                <ul class = "forecastList">
                     <li>Temperature: ${forecastTemp}&#8457;</li>
                     <li>Wind: ${forecastWind} mph</li> 
                     <li>Humidity: ${forecastHumidity}%</li>  
@@ -136,6 +141,7 @@ function displayForecast(forecastData){
             </div>`;
         }
     }
+    // set HTML inside forecastContainer to forecastTemplate literal
     forecastContainer.innerHTML = forecastTemplate;
 }
 
@@ -284,6 +290,14 @@ function toTitleCase(str) {
 // let weatherWind = document.createElement('li');
 // let weatherHumidity = document.createElement('li');
 // let weatherDescription = document.createElement('img');
+
+// let searchedCity = weatherData.name;
+        // let weatherUNIX = weatherData.dt; // format?
+        // let weatherTemp= weatherData.main.temp;
+        // let weatherWind = weatherData.wind.speed;
+        // let weatherHumidity = weatherData.main.humidity;
+        // let weatherDescription = weatherData.weather[0].description;
+        // let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
 
 // weatherContainer.append(searchedCity); 
 // weatherUL.append(weatherTemp, weatherWind, weatherHumidity);
