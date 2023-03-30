@@ -1,18 +1,35 @@
+*{
+    box-sizing: border-box;
+    list-style-type: none;
+}
 
-
+html{
+    height: 100%;
+}
+    
 body {
-    background: rgb(0, 0, 0);
-    /* background-image: url("../assets/images/earth1.jpeg"); */
-    /* ../assets/images/earth2.png */
-
+background: #000000;
+background-image: url("../images/earth2.png"); 
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+height: 100%;
 }
 
 h3 {
-    font-size: 40px;
+    font-size: 5rem;
 }
 
 h4 {
-    font-size: 30px;
+    font-size: 3rem;
+}
+
+h5 {
+    font-size: 1.8rem;
+}
+
+p {
+    font-size: 1.8rem;
 }
 
 #city-input {
@@ -45,37 +62,32 @@ h4 {
 }
 
 #weather-container {
-    padding: 5vh;
-    font-size: 25px;
-    background-color: black;
-    color: white;
-}
-
-
-#weatherList {
-
-}
-
-
-
-
-
-#forecast-container {
-
-    font-size: 25px;
+    max-width: 30%;
     background-color: rgba(120, 120, 120, 0.222);
     color: white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin-left: 5px;
+
 }
 
-.forecastBlock {
-    margin: 2vw;
+#forecast-container {    
+    color: white;
 
+
+
+}
+
+#weatherList {
+    font-size: 1.8rem;
 }
 
 .forecastList {
-
+    font-size: 1.8rem;
 }
+
+.forecastBlock {
+    width: 25em;
+    min-width: 10em;
+    background-color: rgba(120, 120, 120, 0.222);
+    margin: 0;
+    padding: 1em;
+}
+

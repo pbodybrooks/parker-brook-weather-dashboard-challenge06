@@ -89,18 +89,21 @@ function displayWeather(weatherData){
     let weatherWind = weatherData.wind.speed;
     let weatherHumidity = weatherData.main.humidity;
     let weatherIcon = "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png";
-    let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm:ss a');
+    let weatherDateTime = dayjs.unix(weatherUNIX).format('MMM D, YYYY, hh:mm a');
     let weatherDescription = toTitleCase(weatherData.weather[0].description);
    
     // create a template literal i can push over to the HTML later
     let weatherTemplate = `
-        <h3>${searchedCity} ${weatherDateTime} <img src = "${weatherIcon}"</h3>
-        <p>${weatherDescription}</p>
+    <div class = "m-2 p-1">
+        <h3>${searchedCity} </h3>
+        <h4>${weatherDateTime} <img src = "${weatherIcon}"</h4>
+        <h5>${weatherDescription}</h5>
         <ul id = "weatherList">
             <li>Temperature: ${weatherTemp}&#8457;</li>
             <li>Wind: ${weatherWind} mph</li> 
             <li>Humidity: ${weatherHumidity}%</li>  
-        </ul>`;
+        </ul>
+    </div>`;
     
     // set the HTML inside weatherContainer to the template literal i created
     weatherContainer.innerHTML = weatherTemplate;    
@@ -130,10 +133,10 @@ function displayForecast(forecastData){
         if (checkDate === '11' || checkDate === '12'){
             // add to the template literal all the data we want to show the user, grouped by individual divs since we want to separate the five individual days and data
             forecastTemplate += `
-            <div class = "forecastBlock">
+            <div class = "m-2 forecastBlock">
                 <h4> ${forecastDate} </h4>
-                <h3><img src = "${forecastIcon}"> ${forecastDescription}</h3>
-                <ul class = "forecastList">
+                <h5><img src = "${forecastIcon}"> ${forecastDescription}</h5>
+                <ul class = "forecastList p-2">
                     <li>Temperature: ${forecastTemp}&#8457;</li>
                     <li>Wind: ${forecastWind} mph</li> 
                     <li>Humidity: ${forecastHumidity}%</li>  
