@@ -37,7 +37,7 @@ $("#save-button").on("click", function (event) {
 // getWeather does two things when fed a city: it gets the weather, and stores the latitude and longitude in variables
 function getWeather(city) {
     // create request URL with city and APIKey 
-    let weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
+    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     
     // fetch weather data
     fetch(weatherURL)
