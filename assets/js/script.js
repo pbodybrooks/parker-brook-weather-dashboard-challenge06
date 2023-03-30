@@ -96,8 +96,8 @@ function displayWeather(weatherData){
     let weatherTemplate = `
     <div class = "m-2 p-1">
         <h3>${searchedCity} </h3>
-        <h4>${weatherDateTime} <img src = "${weatherIcon}"</h4>
-        <h5>${weatherDescription}</h5>
+        <h4>${weatherDateTime}</h4>
+        <h5><img src = "${weatherIcon}"> ${weatherDescription}</h5>
         <ul id = "weatherList">
             <li>Temperature: ${weatherTemp}&#8457;</li>
             <li>Wind: ${weatherWind} mph</li> 

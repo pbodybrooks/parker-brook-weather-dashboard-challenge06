@@ -22,18 +22,21 @@
         </header>
 
         <main class="row">
-            <div class="col-12 col-md-4 col-lg-3">
+            <div class="col-12 col-xxl-3 city-column">
                 <h2>Search for a City</h2>
                 <div class="d-grid gap-2">
                     <label for="city-input"></label>
                     <input type="text" id="city-input" placeholder="Salt Lake City">
-                    <button class="btn btn-primary" id="save-button">Get Weather!</button>
+                    <button class="btn" id="save-button">Get Weather!</button>
                 </div>
-                <div id="city-list"></div>
-                <button id="clear-cities">Clear City Searches</button>
+                <div class="d-grid"> 
+                    <div id="city-list"></div>
+                    <button id="clear-cities">Clear City Searches</button>
+                </div>
+                
             </div>
 
-            <div class="col-12 col-md-8 col-lg-9">
+            <div class="col-12 col-xxl-9 p-5">
                 <div class="align-items-center m-4" id="weather-container"></div>
                 <div class="row align-items-center m-3" id="forecast-container"></div>
             </div>

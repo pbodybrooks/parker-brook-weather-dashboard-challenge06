@@ -9,15 +9,25 @@ html{
     
 body {
 background: #000000;
-background-image: url("../images/earth2.png"); 
+background-image: url("../images/earth3.jpeg"); 
 background-size: cover;
 background-repeat: no-repeat;
 background-position: center;
 height: 100%;
 }
 
-h3 {
+h1 {
+    font-size: 7rem;
+    color: rgb(146, 146, 146);
+    margin: 0;
+}
+
+h2 {
     font-size: 5rem;
+    color: rgb(96, 96, 96);
+}
+h3 {
+    font-size: 4rem;
 }
 
 h4 {
@@ -25,7 +35,7 @@ h4 {
 }
 
 h5 {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
 }
 
 p {
@@ -33,15 +43,22 @@ p {
 }
 
 #city-input {
-    height: 3vh;
+    height: 3rem;
     font-size: 50px;
-    
+    background-color: rgba(48, 48, 48, 0.222);
+    color: white;
+}
+
+#city-input::placeholder {
+    color: rgba(255, 255, 255, 0.483);
+    font-size: 2.5rem;
 }
 
 #save-button {
-    height: 5vh;
-    font-size: 30px;
+    font-size: 3rem;
     margin-bottom: 5vh;
+    background-color: rgba(70, 70, 70, 0.475);
+    color: white;
 }
 
 #city-list {
@@ -50,29 +67,28 @@ p {
 }
 
 .city-button {
-    padding: 1vh;
-    font-size: 30px;
+    font-size: 3rem;
+    background-color: rgba(70, 70, 70, 0.475);
+    color: white;
 }
 
 #clear-cities {
-    margin-top: 5vh;
-    color: red;
+    font-size: 1.5rem;
+    background-color: rgba(70, 70, 70, 0.475);
+    color: white;
     width: auto;
-
 }
 
 #weather-container {
     max-width: 30%;
-    background-color: rgba(120, 120, 120, 0.222);
+    background-color: rgba(120, 120, 120, 0.475);
     color: white;
+    min-width: 30em;
 
 }
 
 #forecast-container {    
     color: white;
-
-
-
 }
 
 #weatherList {
@@ -84,9 +100,9 @@ p {
 }
 
 .forecastBlock {
-    width: 25em;
-    min-width: 10em;
-    background-color: rgba(120, 120, 120, 0.222);
+    width: 30em;
+    min-width: 30em;
+    background-color: rgba(120, 120, 120, 0.6);
     margin: 0;
     padding: 1em;
 }
