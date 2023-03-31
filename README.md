@@ -16,7 +16,7 @@ N/A
 ...
 
 ## License
-MIT License - Please refer to repo.
+Please refer to repo.
 
 ## Features
 This project features...

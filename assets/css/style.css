@@ -93,7 +93,7 @@ p {
 
 #weather-container {
     max-width: 30%;
-    background-color: rgba(120, 120, 120, 0.475);
+    background-color: rgba(120, 120, 120, 0.6);
     color: white;
     min-width: 30em;
 
@@ -114,7 +114,7 @@ p {
 .forecastBlock {
     width: 30em;
     min-width: 30em;
-    background-color: rgba(120, 120, 120, 0.6);
+    background-color: rgba(60, 60, 60, 0.6);
     margin: 0;
     padding: 1em;
 }

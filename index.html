@@ -21,7 +21,9 @@
             <h1> Weather Dashboard </h1>
         </header>
 
+        <!-- main content is split between a row of two columns that will stack to one column unless the screen size is larger than xxl pixel count -->
         <main class="row">
+            <!-- this column comprises the search button, search field, and historical city search buttons -->
             <div class="col-12 col-xxl-3 city-column">
                 <h2>Search for a City</h2>
                 <div class="d-grid gap-2">
@@ -35,8 +37,11 @@
                 </div>
             </div>
 
+            <!-- this column comprises the weather -->
             <div class="col-12 col-xxl-9 p-5">
+                <!-- container for current weather for JS template literal -->
                 <div class="align-items-center m-4" id="weather-container"></div>
+                <!-- container for current forecast for JS template literal -->
                 <div class="row align-items-center m-3" id="forecast-container"></div>
             </div>
         </main>
